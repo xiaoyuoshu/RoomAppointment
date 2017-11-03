@@ -1,0 +1,9 @@
+<view>
+  <view class="text">23栋三楼公用房使用情况</view>
+  <view class="card" wx:for="{{items}}">
+    <view class="applicant">申请人：{{item.applicant}}</view>
+    <text class="date">日期：{{item.date}}</text>
+    <view class="time">时间：{{item.time}}</view>
+    <view class="state">状态：{{item.state}}</view>
+  </view>
+</view>
