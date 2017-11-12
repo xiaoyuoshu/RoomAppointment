@@ -2,7 +2,9 @@
   "pages":[
     "pages/AppointmentList/AppointmentList",
     "pages/AppointmentInit/AppointmentInit",
-    "pages/UserInfo/UserInfo"
+    "pages/UserInfo/UserInfo",
+    "pages/adminLogin/adminLogin",
+    "pages/admin/admin"
   ],
   "window":{
     "backgroundTextStyle":"light",

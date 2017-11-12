@@ -34,18 +34,10 @@ function getAppData(){
       applicant: appointment.applicant + "(" + appointment.department + ")",
       date: (new Date(appointment.begin_time).getMonth()+1).toString() + "月" + new Date(appointment.begin_time).getDate().toString() + "日",
       time: new Date(appointment.begin_time).getHours().toString() + ":" + new Date(appointment.begin_time).getMinutes().toString() + "~" + new Date(appointment.end_time).getHours().toString() + ":" + new Date(appointment.end_time).getMinutes().toString(),
-      state: appointment.state <= 1 ? (appointment.state == 0 ? "正在进行":"审核成功"):(appointment.state == 2 ? "待审核":"已结束")
+      state: appointment.state <= 1 ? (appointment.state == 0 ? "审核失败":"审核成功"):(appointment.state == 2 ? "待审核":"已结束")
     });
   }
 }
 
-function Appointment(begin_time, end_time, applicant, department, reason){
-  this.init_time = new Date().getTime();
-  this.begin_time = begin_time;
-  this.end_time = end_time;
-  this.site = "23栋3楼公用房";
-  this.applicant = applicant;
-  this.department = department;
-  this.reason = reason;
-  this.state = 2;
-}
+var Util = require("../../utils/util.js");
+var Appointment = Util.Appointment;

@@ -1,19 +1,61 @@
-.container {
-  height: 100%;
+/**index.wxss**/
+.container{
+  background-color: #ffffff;
+  height: 225rpx;
+}
+
+.userinfo {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
+  background-color: #ffffff;
 }
 
-.textStyle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
 }
 
-.textContainer {
-  margin-top: 200px;
+.userinfo-nickname {
+  color: #000000;
+}
+
+
+
+.text{
+    padding-top: 10rpx;
+    text-align: center;
+    color: #000000;
+    
+}
+
+.card {
+    font-size: 36rpx;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20rpx;
+    background-color: #ffffff;
+    box-shadow: 4rpx 1rpx 1rpx 1rpx darkgrey;
+    margin: 16rpx;
+    position: relative;
+}
+
+.applicant {
+  padding-top: 14rpx;
+  padding-left: 28rpx; 
+}
+
+.date {
+  padding-left: 28rpx;
+}
+
+.time {
+  padding-left: 28rpx;
+}
+
+.state {
+  padding-left: 28rpx;
+  padding-bottom: 14rpx;
 }

@@ -1,5 +1,14 @@
 <view class="container">
-  <view class="textContainer">
-    <text class="textStyle">{{text}}</text>
+  <view  bindlongpress="bindViewTap" class="userinfo">
+    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" ></image>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
 </view>
+<scroll-view scroll-y="true">
+  <view class="card" wx:for="{{items}}">
+    <view class="applicant">申请人：{{item.applicant}}</view>
+    <text class="date">日期：{{item.date}}</text>
+    <view class="time">时间：{{item.time}}</view>
+    <view class="state">状态：{{item.state}}</view>
+  </view>
+</scroll-view>

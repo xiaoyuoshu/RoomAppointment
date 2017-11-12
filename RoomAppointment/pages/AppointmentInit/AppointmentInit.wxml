@@ -1,31 +1,31 @@
-<form bindsubmit="formSubmit">
+<form catchsubmit="formSubmit" catchreset="formReset">
     <view class="text">申请人</view>
-    <input class="input" placeholder="如：张三" name="applicant"/>
+    <input class="input" placeholder="如：张三" name="applicant" type="text" confirm-type="next"></input>
 
     <view class="text">申请单位</view>
-    <input class="input" placeholder="如：科协技术部" name="department"/>
+    <input class="input" placeholder="如：科协技术部" name="department" type="text"></input>
 
     <view class="text">申请理由</view>
-    <input class="input" placeholder="如：部门例会" name="reason"/>
+    <input class="input" placeholder="如：部门例会" name="reason" type="text"></input>
 
     <view class="text">申请日期</view>
     <view class="section" name="date">
-        <picker mode="date" value="{{date}}" start="2017-09-01" end="2027-09-01" bindchange="bindDateChange">
-        <view class="picker">当前选择: {{date}} </view>
+        <picker mode="date" value="{{date}}" start="2017-01-01" bindchange="bindDateChange">
+        <view class="picker">{{date}} </view>
       </picker>
     </view>
 
     <view class="text">开始时间</view>
     <view class="section" name="begin_time">
         <picker mode="time" value="{{begin_time}}" start="07:00" end="23:00" bindchange="bindBeginTimeChange">
-        <view class="picker">当前选择: {{begin_time}} </view>
+        <view class="picker">{{begin_time}} </view>
       </picker>
     </view>
 
     <view class="text">结束时间</view>
     <view class="section" name="end_time">
         <picker mode="time" value="{{end_time}}" start="07:00" end="23:00" bindchange="bindEndTimeChange">
-        <view class="picker">当前选择: {{end_time}} </view>
+        <view class="picker">{{end_time}} </view>
       </picker>
     </view>
 

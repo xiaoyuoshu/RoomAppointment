@@ -1,0 +1,5 @@
+<form catchsubmit="formSubmit" catchreset="formReset">
+    <view class="text">输入密码</view>
+    <input class="input" placeholder="请输入" name="password" password type="text" confirm-type="next"></input>
+    <button class="button" type="primary" formType="submit">确定</button>
+</form>
