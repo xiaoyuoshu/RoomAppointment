@@ -1,3 +1,4 @@
+var resource = [];
 Page({
   data:{
     items: [],
@@ -5,11 +6,11 @@ Page({
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    getAppData();
-    this.setData({items: appList, hidden:false});
+    
   },
   onReady:function(){
     // 页面渲染完成
+    getAppData(this);
   },
   onShow:function(){
     // 页面显示
@@ -24,13 +25,15 @@ Page({
     console.log(e);
     console.log(JSON.stringify(e.currentTarget));
     var appointment;
+    var that = this;
     for(var appoint of appointmentList){
       if(appoint.init_time==e.currentTarget.id){
         appointment = appoint;
       }
     }
+    console.log(appointment);
     wx.showModal({
-          title: '审核',
+          title: '请审核信息',
           content: appointment.applicant
             +"("+appointment.department+")\n"
             +"理由："
@@ -44,6 +47,17 @@ Page({
           success: function(res) {
             if (res.confirm) {
               console.log('管理员点击确定');
+              wx.request({
+                url: Util.debugServer + 'AdminConfirm',
+                data: appointment,
+                success: function (res) {
+                  console.log(res);
+                  console.log(res.data);
+                }
+              });
+              wx.reLaunch({
+                url:'../admin/admin'
+              });
               wx.showModal({
                 title: "审核成功！",
                 content: "请在使用5分钟前开门。",
@@ -56,32 +70,45 @@ Page({
             }
           }
     });
-    wx.request({
-      url:'http://127.0.0.1:1337',
-      data:e.currentTarget,
-      header:{'content-type': 'application/json' },
-      success:function(res){
-        console.log(res);
-      }
-    });
   }
 })
-var appointmentList= [];
-var appList = [];
-function getAppData(){
+var appointmentList = [];
+function getAppData(onPage){
   var i;
   var date = new Date();
-  for(i = 0; i < 100; i++){
-    var appointment = new Appointment(date.getTime(), date.getTime(), "舒晓宇", "科协技术部", "开会");
-    appointmentList.push(appointment);
-    appList.push({
-      applicant: appointment.applicant + "(" + appointment.department + ")",
-      date: (new Date(appointment.begin_time).getMonth()+1).toString() + "月" + new Date(appointment.begin_time).getDate().toString() + "日",
-      time: new Date(appointment.begin_time).getHours().toString() + ":" + new Date(appointment.begin_time).getMinutes().toString() + "~" + new Date(appointment.end_time).getHours().toString() + ":" + new Date(appointment.end_time).getMinutes().toString(),
-      state: appointment.state <= 1 ? (appointment.state == 0 ? "审核失败":"审核成功"):(appointment.state == 2 ? "待审核":"已结束"),
-      Init_time: appointment.init_time
-    });
-  }
+  var that = onPage;
+  var appList = [];
+  wx.request({
+      url: Util.debugServer + 'AllAppList',
+      success: function (res) {
+        console.log(res);
+        console.log(res.data);
+        resource = res.data;
+        for(var appointment of res.data.result ){
+          appList.push({
+            Init_time: appointment.init_time,
+            applicant: appointment.applicant + "(" + appointment.department + ")",
+            date: (new Date(appointment.begin_time).getMonth()+1).toString() + "月" + new Date(appointment.begin_time).getDate().toString() + "日",
+            time: new Date(appointment.begin_time).getHours().toString() + ":" + new Date(appointment.begin_time).getMinutes().toString() + "~" + new Date(appointment.end_time).getHours().toString() + ":" + new Date(appointment.end_time).getMinutes().toString(),
+            state: appointment.state <= 1 ? (appointment.state == 0 ? "审核失败":"审核成功"):(appointment.state == 2 ? "待审核":"已结束")
+          });
+          var app = {
+            init_time: appointment.init_time,
+            begin_time: appointment.begin_time,
+            end_time: appointment.end_time,
+            site: appointment.site,
+            applicant: appointment.applicant,
+            department: appointment.department,
+            reason: appointment.reason,
+            state: appointment.state,
+            wx_id: appointment.wx_id
+          };
+          console.log(app);
+          appointmentList.push(app);
+        };
+        that.setData({items: appList});
+      }
+  });
 }
 
 var Util = require("../../utils/util.js");

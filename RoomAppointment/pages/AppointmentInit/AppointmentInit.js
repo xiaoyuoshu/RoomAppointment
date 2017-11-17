@@ -91,7 +91,7 @@ Page({
           confirmText: "确定"
         });
       }
-      else if(form_time!=null&&(Date.now()-180000>this.data.form_time)){
+      else if(form_time!=null&&(Date.now() - 180000>this.data.form_time)){
         wx.showModal({
           title: "提交失败！",
           content: "提交太匆忙，请三分钟后再试",
@@ -100,7 +100,7 @@ Page({
         })
       }
       else{
-        var appointment = new Appointment(begin.getTime(), end.getTime(), e.detail.value.applicant, e.detail.value.department, e.detail.value.reason);
+        var appointment = new Appointment(begin.getTime(), end.getTime(), e.detail.value.applicant, e.detail.value.department, e.detail.value.reason, null);
         wx.showModal({
           title: '请确认提交信息',
           content: appointment.applicant+"("+appointment.department+")\n理由："+appointment.reason+"\n日期："+this.data.date+"\n时间:"+this.data.begin_time+"~"+this.data.end_time,
@@ -108,6 +108,14 @@ Page({
           success: function(res) {
             if (res.confirm) {
               console.log('用户点击确定');
+              wx.request({
+                url: Util.debugServer + 'InitApp',
+                data: appointment,
+                success: function (res) {
+                  console.log(res);
+                  console.log(res.data);
+                }
+              });
               wx.showModal({
                 title: "提交成功！",
                 content: "请等待审核。",

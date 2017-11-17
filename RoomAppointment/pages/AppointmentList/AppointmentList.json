@@ -1,3 +1,4 @@
 {
-    "navigationBarTitleText": "查看使用信息"
+    "navigationBarTitleText": "查看使用信息",
+    "enablePullDownRefresh": true
 }

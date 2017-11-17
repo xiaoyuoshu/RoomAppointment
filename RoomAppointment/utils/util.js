@@ -77,11 +77,14 @@ var getopenID = function (thisObj){
     }
   });
 } 
-
+var server = "http://120.78.180.81:8081/";
+var debugServer = "http://127.0.0.1:8081/"
 module.exports = {
   formatTime: formatTime,
   formatNumber: formatNumber,
   Appointment: Appointment,
+  server:server,
+  debugServer:debugServer,
   getopenID: getopenID
 }
 
